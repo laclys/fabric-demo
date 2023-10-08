@@ -13,37 +13,31 @@
 import { onMounted } from "vue";
 import { fabric } from "fabric";
 
+// 初始化
 function init() {
   const canvas = new fabric.Canvas("canvas");
 
-  // 椭圆
-  const ellipse = new fabric.Ellipse({
-    top: 20,
-    left: 20,
-    rx: 100,
-    ry: 50,
-    fill: "#ddd",
-    originX: "center", // 旋转x轴：left, right, center
-    originY: "center", // 旋转y轴：top, bottom, center
+  const rect = new fabric.Rect({
+    left: 100,
+    top: 100,
+    width: 100,
+    height: 100,
+    fill: "red",
   });
 
-  // 文本
-  const text = new fabric.Text("Hello World", {
-    top: 20,
-    left: 20,
-    fontSize: 20,
-    originX: "center",
-    originY: "center",
+  // 设置矩形动画
+  /*   第一个参数是要设置动画的属性。
+
+第二个参数是动画的结束值。
+
+第三个参数是一个对象 */
+  rect.animate("angle", "+=360", { // "+=360"相对动画 
+    onChange: canvas.renderAll.bind(canvas), // 每次刷新的时候都会执行
+    duration: 2000, // ms 默认500ms
+    easing: fabric.util.ease.easeOutBounce, // 缓冲效果
   });
 
-  // 建组
-  const group = new fabric.Group([ellipse, text], {
-    top: 50, // 整组距离顶部100
-    left: 100, // 整组距离左侧100
-    angle: -10, // 整组旋转-10deg
-  });
-
-  canvas.add(group);
+  canvas.add(rect);
 }
 
 onMounted(() => {
