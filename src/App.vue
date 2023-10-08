@@ -1,8 +1,8 @@
 <template>
   <div>
     <canvas
-      width="500"
-      height="500"
+      width="400"
+      height="400"
       id="canvas"
       style="border: 1px solid #ccc"
     ></canvas>
@@ -12,96 +12,38 @@
 <script setup>
 import { onMounted } from "vue";
 import { fabric } from "fabric";
-import non from "@/assets/non.jpg";
 
 function init() {
   const canvas = new fabric.Canvas("canvas");
-/*   fabric 内置滤镜
 
-
-BaseFilter 基本过滤器
-
-
-Blur 模糊
-
-
-Brightness 亮度
-
-
-ColorMatrix 颜色矩阵
-
-
-Contrast 对比
-
-
-Convolute 卷积
-
-
-Gamma 伽玛
-
-
-Grayscale 灰度
-
-
-HueRotation 色调旋转
-
-
-Invert 倒置
-
-
-Noise 噪音
-
-
-Pixelate 像素化
-
-
-RemoveColor 移除颜色
-
-
-Resize 调整大小
-
-
-Saturation 饱和
-
-
-Sepia 色偏 */
-
-
-  fabric.Image.fromURL(non, (img) => {
-    img.scale(0.2); // 图片缩小50%
-    canvas.add(img);
+  // 椭圆
+  const ellipse = new fabric.Ellipse({
+    top: 20,
+    left: 20,
+    rx: 100,
+    ry: 50,
+    fill: "#ddd",
+    originX: "center", // 旋转x轴：left, right, center
+    originY: "center", // 旋转y轴：top, bottom, center
   });
 
-  // 单个滤镜
-  fabric.Image.fromURL(non, (img) => {
-    img.scale(0.2); // 图片缩小50%
-    img.left = 250;
-    // 添加滤镜
-    img.filters.push(new fabric.Image.filters.Grayscale());
-    // 图片加载完成之后，应用滤镜效果
-    img.applyFilters();
-    canvas.add(img);
+  // 文本
+  const text = new fabric.Text("Hello World", {
+    top: 20,
+    left: 20,
+    fontSize: 20,
+    originX: "center",
+    originY: "center",
   });
 
-  // 叠加滤镜
-  // “filters”属性是一个数组，我们可以用数组方法执行任何所需的操作：移除滤镜（pop，splice，shift），添加滤镜（push，unshift，splice），甚至可以组合多个滤镜。当我们调用 applyFilters 时，“filters”数组中存在的任何滤镜将逐个应用，所以让我们尝试创建一个既色偏又明亮（Brightness）的图像。
-  fabric.Image.fromURL(non, (img) => {
-    img.scale(0.2); // 图片缩小50%
-    // 添加滤镜
-    img.filters.push(
-      new fabric.Image.filters.Grayscale(),
-      new fabric.Image.filters.Sepia(), //色偏
-      new fabric.Image.filters.Brightness({ brightness: 0.2 }) //亮度
-    );
-    // 图片加载完成之后，应用滤镜效果
-    img.applyFilters();
-    img.set({
-      left: 250,
-      top: 250,
-    });
-
-    canvas.add(img);
+  // 建组
+  const group = new fabric.Group([ellipse, text], {
+    top: 50, // 整组距离顶部100
+    left: 100, // 整组距离左侧100
+    angle: -10, // 整组旋转-10deg
   });
+
+  canvas.add(group);
 }
 
 onMounted(() => {
