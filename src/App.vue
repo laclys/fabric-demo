@@ -3,26 +3,28 @@ import { onMounted } from "vue";
 import { fabric } from "fabric"; // 引入 fabric
 
 function init() {
-  // 使用 StaticCanvas 创建一个不可操作的画布
-  const canvas = new fabric.StaticCanvas("c");
-
-  // 创建一个长方形
-  const rect = new fabric.Rect({
-    top: 100, // 距离容器顶部 100px
-    left: 100, // 距离容器左侧 100px
-    width: 30, // 矩形宽度 30px
-    height: 30, // 矩形高度 30px
-    fill: "red", // 填充 红色
+  const canvas = new fabric.Canvas("canvas", {
+    width: 300, // 画布宽度
+    height: 300, // 画布高度
+    backgroundColor: "#eee", // 画布背景色
   });
 
-  // 在canvas画布中加入矩形（rect）。add是“添加”的意思
-  canvas.add(rect);
+  // 圆形
+  const circle = new fabric.Circle({
+    radius: 30, // 圆的半径
+    top: 20, // 距离容器顶部 20px
+    left: 20, // 距离容器左侧 20px
+    fill: "pink", // 填充 粉色
+  });
+
+  canvas.add(circle); // 将圆形添加到 canvas 画布里
 }
 
 onMounted(() => {
-  init(); // 执行初始化函数
+  init();
 });
 </script>
+
 
 <template>
   <div>
