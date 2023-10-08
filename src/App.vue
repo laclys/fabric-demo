@@ -5,17 +5,17 @@ import jailCellBars from "./assets/jail_cell_bars.png"; // 引入背景图
 
 function init() {
   const canvas = new fabric.Canvas("canvas");
-  const circle = new fabric.Circle({
-    top: 100,
-    left: 100,
-    radius: 50, // 半径：50px
+  const text = new fabric.Text("托马斯", {
+    top: 40,
+    left: 40,
+    fontSize: 120,
     backgroundColor: "green", // 背景色：绿色
     fill: "orange", // 填充色：橙色
     stroke: "#f6416c", // 边框颜色：粉色
-    strokeWidth: 5, // 边框粗细：5px
+    strokeWidth: 3, // 边框粗细：3px
     strokeDashArray: [20, 5, 14], // 边框虚线规则：填充20px 空5px 填充14px 空20px 填充5px ……
     shadow: "10px 20px 6px rgba(10, 20, 30, 0.4)", // 投影：向右偏移10px，向下偏移20px，羽化6px，投影颜色及透明度
-    transparentCorners: true, // 选中时，角是被填充了。true 空心；false 实心
+    transparentCorners: false, // 选中时，角是被填充了。true 空心；false 实心
     borderColor: "#16f1fc", // 选中时，边框颜色：天蓝
     borderScaleFactor: 5, // 选中时，边的粗细：5px
     borderDashArray: [20, 5, 10, 7], // 选中时，虚线边的规则
@@ -29,7 +29,7 @@ function init() {
     borderOpacityWhenMoving: 0.6, // 当对象活动和移动时，对象控制边界的不透明度
   });
 
-  canvas.add(circle);
+  canvas.add(text);
 }
 
 onMounted(() => {
