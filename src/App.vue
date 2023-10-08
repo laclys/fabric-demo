@@ -31,7 +31,7 @@ onMounted(() => {
     <canvas
       width="400"
       height="400"
-      id="c"
+      id="canvas"
       style="border: 1px solid #ccc"
     ></canvas>
   </div>
