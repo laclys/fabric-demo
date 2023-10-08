@@ -3,9 +3,8 @@ import { onMounted } from "vue";
 import { fabric } from "fabric"; // 引入 fabric
 
 function init() {
-  const canvas = new fabric.Canvas("c"); // 这里传入的是canvas的id
-
-  // 这个就是可交互的canvas
+  // 使用 StaticCanvas 创建一个不可操作的画布
+  const canvas = new fabric.StaticCanvas("c");
 
   // 创建一个长方形
   const rect = new fabric.Rect({
