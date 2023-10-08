@@ -23,7 +23,7 @@ function init() {
   });
 
   canvas.add(circle);
-  canvas.selection = false; // 不允许直接从画布框选
+  canvas.selection = false; // 允许从画布框选，但允许选中元素。
 }
 
 onMounted(() => {
