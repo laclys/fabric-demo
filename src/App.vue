@@ -1,26 +1,57 @@
 <script setup>
 import { onMounted } from "vue";
 import { fabric } from "fabric";
+import jailCellBars from "./assets/jail_cell_bars.png"; // 引入背景图
 
 function init() {
   const canvas = new fabric.Canvas("canvas");
+  /* 圆形 */
+/*   const circle = new fabric.Circle({
+    top: 100,
+    left: 100,
+    radius: 50, // 圆的半径 50
+    fill: 'green'
+  })
+  canvas.add(circle) */
 
-  // // 设置背景图
-  // // 参数1：背景图资源（可以引入本地，也可以使用网络图）
-  // // 参数2：设置完背景图执行以下重新渲染canvas的操作，这样背景图就会展示出来了
-  // canvas.setBackgroundImage("/src/assets/pic.jpg", canvas.renderAll.bind(canvas), {
-  //   // angle: 15, // 旋转背景图
-  // });
-  fabric.Image.fromURL("/src/assets/pic.jpg", (img) => {
-    // 设置背景图
-    canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas), {
-      scaleX: canvas.width / img.width, // 计算出图片要拉伸的宽度
-      scaleY: canvas.height / img.height, // 计算出图片要拉伸的高度
-    });
-  });
+  /* 三角形 */
+  /*   const triangle = new fabric.Triangle({
+    top: 100,
+    left: 100,
+    width: 80, // 底边长度
+    height: 100, // 底边到对角的距离
+    fill: 'blue'
+  })
+  canvas.add(triangle) */
+
+  /* 折线 */
+  /*   const polyline = new fabric.Polyline(
+    [
+      { x: 30, y: 30 },
+      { x: 150, y: 140 },
+      { x: 240, y: 150 },
+      { x: 100, y: 30 },
+    ],
+    {
+      fill: "transparent", // 如果画折线，需要填充透明
+      stroke: "#6639a6", // 线段颜色：紫色
+      strokeWidth: 5, // 线段粗细 5
+    }
+  );
+  canvas.add(polyline); */
+  /* 多边形 */
+  /*   const polygon = new fabric.Polygon([
+    {x: 30, y: 30},
+    {x: 150, y: 140},
+    {x: 240, y: 150},
+    {x: 100, y: 30}
+  ], {
+    fill: '#ffd3b6', // 填充色
+    stroke: '#6639a6', // 线段颜色：紫色
+    strokeWidth: 5 // 线段粗细 5
+  })
+  canvas.add(polygon) */
 }
-// 使用了 fabric.Image.fromURL 这个 api 来加载图片，第一个参数是图片地址，第二个参数是回调函数。
-
 
 onMounted(() => {
   init();
