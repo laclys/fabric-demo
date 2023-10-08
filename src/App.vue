@@ -6,8 +6,6 @@
       id="canvas"
       style="border: 1px solid #ccc"
     ></canvas>
-    <button @click="addClickEvent">添加画布点击事件</button>
-    <button @click="removeClickEvent">移除画布点击事件</button>
   </div>
 </template>
 
@@ -15,41 +13,25 @@
 import { onMounted } from "vue";
 import { fabric } from "fabric";
 
-let canvas = null;
-
-// 初始化画布
+// 初始化
 function init() {
-  canvas = new fabric.Canvas("canvas");
-
-  const rect = new fabric.Rect({
-    top: 20,
-    left: 20,
-    width: 100,
-    height: 50,
-    fill: "#9896f1",
+  const canvas = new fabric.Canvas("canvas", {
+    isDrawingMode: true, // 开启绘图模式
   });
 
-  // 给矩形添加一个选中事件
-  rect.on("selected", (options) => {
-    console.log("选中矩形啦", options);
-  });
-  canvas.add(rect);
+  // 设置画笔颜色
+  canvas.freeDrawingBrush.color = "#11999e";
 
-  addClickEvent();
-}
+  // 设置画笔粗细
+  canvas.freeDrawingBrush.width = 10;
 
-// 移除画布点击事件
-function removeClickEvent() {
-  canvas.off("mouse:down");
-}
-
-// 添加画布点击事件
-function addClickEvent() {
-  removeClickEvent(); // 在添加事件之前先把该事件清除掉，以免重复添加
-  canvas.on("mouse:down", (options) => {
-    console.log(
-      `x轴坐标: ${options.e.clientX};    y轴坐标: ${options.e.clientY}`
-    );
+  // 画笔投影
+  canvas.freeDrawingBrush.shadow = new fabric.Shadow({
+    blur: 10,
+    offsetX: 10,
+    offsetY: 10,
+    affectStroke: true,
+    color: "#30e3ca",
   });
 }
 
