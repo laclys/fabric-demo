@@ -1,69 +1,60 @@
-<script setup>
-import { onMounted } from "vue";
-import { fabric } from "fabric";
-import jailCellBars from "./assets/jail_cell_bars.png"; // 引入背景图
-
-function init() {
-  const canvas = new fabric.Canvas("canvas");
-  // 圆
-  let circle = new fabric.Circle({
-    left: 100,
-    top: 100,
-    radius: 50,
-  });
-
-  /*   // 线性渐变
-  let gradient = new fabric.Gradient({
-    type: "linear", // linear or radial
-    gradientUnits: "pixels", // pixels or pencentage 像素 或者 百分比
-    coords: { x1: 0, y1: 0, x2: circle.width, y2: 0 }, // 至少2个坐标对（x1，y1和x2，y2）将定义渐变在对象上的扩展方式
-    colorStops: [
-      // 定义渐变颜色的数组
-      { offset: 0, color: "red" },
-      { offset: 0.2, color: "orange" },
-      { offset: 0.4, color: "yellow" },
-      { offset: 0.6, color: "green" },
-      { offset: 0.8, color: "blue" },
-      { offset: 1, color: "purple" },
-    ],
-  }); */
-  /* 径向渐变 */
-  let gradient = new fabric.Gradient({
-    type: "radial",
-    coords: {
-      r1: 50, // 该属性仅径向渐变可用，外圆半径
-      r2: 0, // 该属性仅径向渐变可用，外圆半径
-      x1: 50, // 焦点的x坐标
-      y1: 50, // 焦点的y坐标
-      x2: 50, // 中心点的x坐标
-      y2: 50, // 中心点的y坐标
-    },
-    colorStops: [
-      { offset: 0, color: "#fee140" },
-      { offset: 1, color: "#fa709a" },
-    ],
-  });
-
-  circle.set("fill", gradient);
-  canvas.add(circle);
-}
-
-onMounted(() => {
-  init();
-});
-</script>
-
-
 <template>
   <div>
     <canvas
-      width="400"
-      height="400"
+      width="500"
+      height="500"
       id="canvas"
       style="border: 1px solid #ccc"
     ></canvas>
   </div>
 </template>
 
-<style scoped>
-</style>
+<script setup>
+import { onMounted } from "vue";
+import { fabric } from "fabric";
+import non from "@/assets/non.jpg";
+
+function init() {
+  const canvas = new fabric.Canvas("canvas");
+
+  fabric.Image.fromURL(non, (img) => {
+    img.scale(0.2); // 图片缩小50%
+    canvas.add(img);
+  });
+
+  // 单个滤镜
+  fabric.Image.fromURL(non, (img) => {
+    img.scale(0.2); // 图片缩小50%
+    img.left = 250;
+    // 添加滤镜
+    img.filters.push(new fabric.Image.filters.Grayscale());
+    // 图片加载完成之后，应用滤镜效果
+    img.applyFilters();
+    canvas.add(img);
+  });
+
+  // 叠加滤镜
+  // “filters”属性是一个数组，我们可以用数组方法执行任何所需的操作：移除滤镜（pop，splice，shift），添加滤镜（push，unshift，splice），甚至可以组合多个滤镜。当我们调用 applyFilters 时，“filters”数组中存在的任何滤镜将逐个应用，所以让我们尝试创建一个既色偏又明亮（Brightness）的图像。
+  fabric.Image.fromURL(non, (img) => {
+    img.scale(0.2); // 图片缩小50%
+    // 添加滤镜
+    img.filters.push(
+      new fabric.Image.filters.Grayscale(),
+      new fabric.Image.filters.Sepia(), //色偏
+      new fabric.Image.filters.Brightness({ brightness: 0.2 }) //亮度
+    );
+    // 图片加载完成之后，应用滤镜效果
+    img.applyFilters();
+    img.set({
+      left: 250,
+      top: 250,
+    });
+
+    canvas.add(img);
+  });
+}
+
+onMounted(() => {
+  init();
+});
+</script>
