@@ -1,7 +1,7 @@
 <template>
   <canvas
-    width="400"
-    height="400"
+    width="200"
+    height="200"
     id="canvas"
     style="border: 1px solid #ccc"
   ></canvas>
@@ -14,18 +14,17 @@ import { fabric } from "fabric";
 function init() {
   const canvas = new fabric.Canvas("canvas");
 
-  const rect = new fabric.Rect({
-    top: 100,
-    left: 100,
-    width: 200,
-    height: 100,
-    fill: "red",
+  // 圆形
+  const circle = new fabric.Circle({
+    radius: 30,
+    fill: "#f55",
+    top: 70,
+    left: 70,
   });
 
-  // 元素禁止选中
-  rect.selectable = false;
+  canvas.hoverCursor = "wait"; // 设置等待指针
 
-  canvas.add(rect);
+  canvas.add(circle);
 }
 
 onMounted(() => {
