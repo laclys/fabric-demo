@@ -22,9 +22,37 @@ function init() {
     left: 70,
   });
 
-  canvas.hoverCursor = "wait"; // 设置等待指针
+  circle.hasBorders = circle.hasControls = false;
 
   canvas.add(circle);
+
+  function animate(e, dir) {
+    if (e.target) {
+      // fabric.util.animate({
+      //   startValue: e.target.get("angle"),
+      //   endValue: e.target.get("angle") + (dir ? 10 : -10),
+      //   duration: 100,
+      // });
+      fabric.util.animate({
+        startValue: e.target.get("scaleX"),
+        endValue: e.target.get("scaleX") + (dir ? 0.2 : -0.2),
+        duration: 100,
+        onChange: function (value) {
+          e.target.scale(value);
+          canvas.renderAll();
+        },
+        onComplete: function () {
+          e.target.setCoords();
+        },
+      });
+    }
+  }
+  canvas.on("mouse:down", function (e) {
+    animate(e, 1);
+  });
+  canvas.on("mouse:up", function (e) {
+    animate(e, 0);
+  });
 }
 
 onMounted(() => {
