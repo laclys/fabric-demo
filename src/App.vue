@@ -16,6 +16,56 @@ import non from "@/assets/non.jpg";
 
 function init() {
   const canvas = new fabric.Canvas("canvas");
+/*   fabric 内置滤镜
+
+
+BaseFilter 基本过滤器
+
+
+Blur 模糊
+
+
+Brightness 亮度
+
+
+ColorMatrix 颜色矩阵
+
+
+Contrast 对比
+
+
+Convolute 卷积
+
+
+Gamma 伽玛
+
+
+Grayscale 灰度
+
+
+HueRotation 色调旋转
+
+
+Invert 倒置
+
+
+Noise 噪音
+
+
+Pixelate 像素化
+
+
+RemoveColor 移除颜色
+
+
+Resize 调整大小
+
+
+Saturation 饱和
+
+
+Sepia 色偏 */
+
 
   fabric.Image.fromURL(non, (img) => {
     img.scale(0.2); // 图片缩小50%
